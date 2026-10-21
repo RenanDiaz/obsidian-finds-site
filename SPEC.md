@@ -316,7 +316,7 @@ El README va a explicar:
 | 1 | Build sin warnings | ✅ `npm run build` sin warnings ni errores (Astro 7.4.1) |
 | 2 | Contenido sin JS | ✅ Los textos de la sección 5 y los links a Cuanto, Instagram e ig.me están en `dist/index.html` y en la respuesta de `curl` a `wrangler dev` |
 | 3 | 0 KB de JS | ✅ Ningún `.js` en `dist/`; el único `<script>` es el JSON-LD |
-| 4 | Lighthouse móvil ≥ 95 | ✅ 3 corridas contra `wrangler dev`: Performance 97 / 97 / 98, Accessibility 100, Best Practices 100, SEO 100. LCP 2.4–2.6 s, TBT 0 ms, CLS 0 |
+| 4 | Lighthouse móvil ≥ 95 | ✅ **Producción** (obsidian-finds.com, 5 corridas tras el commit 22d9e9d): Performance 98 / 100 / 100 / 99 / 95, Accessibility, Best Practices y SEO 100. LCP 1.6–2.4 s, CLS ≤ 0.007. Con la foto del hero anterior (AVIF de 105 KB), producción daba ~92; se bajó a 65 KB (calidad 40 + ancho de 750 px) |
 | 5 | Responsive 360–1440 | ✅ `scrollWidth == innerWidth` en 360, 390, 768, 1024 y 1440 px, revisado con capturas |
 | 6 | Sin teléfonos | ✅ Ninguna coincidencia en el texto visible ni en los `href` (`tel:`, `wa.me`, `+507`, patrones de 7–8 dígitos) |
 | 7 | Sin `_input/` ni imágenes > 1 MB | ✅ `_input/` en `.gitignore`; la imagen versionada más pesada es `bikini-calaveras-celeste.jpg` (493 KB) |
@@ -324,4 +324,4 @@ El README va a explicar:
 | 9 | Metadatos | ✅ title, description, canonical, OG, Twitter, JSON-LD `ClothingStore`, sitemap y robots |
 | 10 | 404 de marca | ✅ `curl -i /no-existe` devuelve 404 con la página de la marca |
 
-Pendiente de verificar en producción: la conexión del apex en el primer deploy y la Redirect Rule de www (README).
+El apex quedó conectado en el primer deploy (DNS, certificado, Brotli y caché `immutable` en `/_astro/` verificados). Pendiente: la Redirect Rule de www (README).
