@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Cristal from '../assets/logo/logo-cristal.svg';
+import { site } from '../config/site';
+---
+
+<Base title={`404 — ${site.name}`} description="Esta página no existe." noindex>
+  <main class="nf wrap">
+    <Cristal class="nf__cristal" aria-hidden="true" />
+    <h1><span class="nf__code">404</span> Este hallazgo no existe.</h1>
+    <div class="nf__actions">
+      <Button href="/">Volver al inicio</Button>
+      <Button href={site.cuanto} variant="secondary">Ver la tienda</Button>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .nf {
+    display: grid;
+    justify-items: start;
+    align-content: center;
+    gap: 2rem;
+    min-height: 100svh;
+    padding-block: 4rem;
+  }
+
+  .nf__cristal {
+    width: auto;
+    height: clamp(8rem, 20vw, 14rem);
+    color: var(--hueso);
+  }
+
+  h1 {
+    font-size: var(--step-3);
+  }
+
+  .nf__code {
+    display: block;
+    font-size: 1.8em;
+    color: var(--neon);
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>

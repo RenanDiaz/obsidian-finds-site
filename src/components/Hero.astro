@@ -1,0 +1,180 @@
+---
+import { Picture } from 'astro:assets';
+import Cristal from '../assets/logo/logo-cristal.svg';
+import llamas from '../assets/fotos/bikini-llamas.jpg';
+import Button from './Button.astro';
+import { site } from '../config/site';
+---
+
+<header class="hero">
+  <div class="hero__text">
+    <div class="lockup">
+      <Cristal class="lockup__cristal" aria-hidden="true" />
+      <h1 class="lockup__name">{site.name}</h1>
+      <p class="lockup__tagline">{site.tagline}</p>
+    </div>
+    <p class="hero__subtitle">{site.subtitle}</p>
+    <p class="hero__meta">{site.location.label} <span aria-hidden="true">·</span> {site.shipping}</p>
+    <div class="hero__actions">
+      <Button href={site.cuanto}>Ver la tienda</Button>
+      <a class="hero__ig" href={site.instagram}>Síguenos en Instagram</a>
+    </div>
+  </div>
+
+  <figure class="hero__photo">
+    <Picture
+      src={llamas}
+      alt="Bikini negro con estampado de llamas rojas y amarillas sobre arena volcánica negra, junto a lentes de sol negros y stickers góticos de murciélago y ataúd"
+      widths={[480, 640, 800, 960, 1201]}
+      sizes="(min-width: 900px) 55vw, 100vw"
+      formats={['avif', 'webp']}
+      quality={50}
+      loading="eager"
+      fetchpriority="high"
+    />
+    <figcaption class="sticker sticker--rojo">Llamas</figcaption>
+  </figure>
+</header>
+
+<style>
+  .hero {
+    display: grid;
+    max-width: var(--max);
+    margin-inline: auto;
+  }
+
+  .hero__photo {
+    position: relative;
+    order: -1;
+  }
+
+  .hero__photo :global(img) {
+    width: 100%;
+    height: min(46svh, 100vw);
+    object-fit: cover;
+    object-position: 50% 40%;
+  }
+
+  .hero__photo .sticker {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 1.25rem;
+    --tilt: 5deg;
+  }
+
+  .hero__text {
+    padding: 1.5rem var(--gutter) 3rem;
+  }
+
+  /* Móvil: cristal al lado del nombre para que el lockup y el CTA entren en la primera pantalla. */
+  .lockup {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: start;
+    gap: 0.5rem 0.875rem;
+  }
+
+  .lockup__cristal {
+    grid-row: span 2;
+    width: auto;
+    height: 6.5rem;
+    color: var(--hueso);
+  }
+
+  .lockup__name {
+    font-size: var(--step-4);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+  }
+
+  .lockup__tagline {
+    padding: 0.2em 0.6em 0.15em;
+    border: 2px solid var(--hueso);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hero__subtitle {
+    margin-top: 1.25rem;
+    max-width: 22ch;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 400;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--neon);
+  }
+
+  .hero__meta {
+    margin-top: 1rem;
+    color: var(--hueso-70);
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero__ig {
+    font-weight: 600;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--neon);
+  }
+
+  .hero__ig:hover {
+    color: var(--neon);
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      min-height: min(100svh, 960px);
+    }
+
+    .hero__photo {
+      order: 0;
+    }
+
+    /* La foto llena la columna sin imponer su alto natural a la grilla. */
+    .hero__photo :global(img) {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+    }
+
+    .hero__text {
+      align-self: center;
+      padding-block: 4rem;
+    }
+
+    .lockup {
+      grid-template-columns: none;
+    }
+
+    .lockup__cristal {
+      grid-row: auto;
+      height: clamp(5rem, 9vw, 9rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero__subtitle {
+      margin-top: 2rem;
+    }
+
+    .hero__actions {
+      margin-top: 2rem;
+    }
+  }
+</style>

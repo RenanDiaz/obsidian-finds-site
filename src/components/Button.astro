@@ -1,0 +1,73 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const { href, variant = 'primary' } = Astro.props;
+---
+
+<a class:list={['btn', `btn--${variant}`]} href={href}>
+  <slot />
+  <span class="btn__arrow" aria-hidden="true">→</span>
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    min-height: 3.25rem;
+    padding: 0.75em 1.5em;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .btn--primary {
+    background: var(--neon);
+    color: var(--obsidiana);
+    box-shadow: 4px 4px 0 var(--morado);
+  }
+
+  .btn--secondary {
+    border-color: var(--hueso);
+    color: var(--hueso);
+  }
+
+  .btn:hover {
+    transform: translate(-2px, -2px);
+  }
+
+  .btn--primary:hover {
+    box-shadow: 6px 6px 0 var(--morado);
+  }
+
+  .btn--secondary:hover {
+    background: var(--hueso);
+    color: var(--obsidiana);
+  }
+
+  .btn__arrow {
+    transition: transform 0.15s ease;
+  }
+
+  .btn:hover .btn__arrow {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn__arrow {
+      transition: none;
+    }
+  }
+</style>

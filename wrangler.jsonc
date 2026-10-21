@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "obsidian-finds",
+  "compatibility_date": "2026-10-20",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  // El apex se conecta solo en cada deploy (DNS + certificado). www redirige al apex
+  // con una Redirect Rule del dashboard; ver README.
+  "routes": [{ "pattern": "obsidian-finds.com", "custom_domain": true }]
+}

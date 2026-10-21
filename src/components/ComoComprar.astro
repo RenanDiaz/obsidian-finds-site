@@ -1,0 +1,137 @@
+---
+import { Picture } from 'astro:assets';
+import orilla from '../assets/fotos/playa-orilla.jpg';
+import Button from './Button.astro';
+import { site } from '../config/site';
+
+const pasos = [
+  { titulo: 'Explora', texto: 'Mira todo el catálogo en Cuanto.' },
+  { titulo: 'Pide y paga', texto: 'Haz tu pedido y paga ahí mismo.' },
+  { titulo: 'Recíbelo', texto: 'Enviamos a todo Panamá.' },
+];
+---
+
+<section class="comprar" aria-labelledby="comprar-title">
+  <div class="wrap comprar__inner">
+    <div>
+      <h2 id="comprar-title">Cómo comprar</h2>
+      <ol class="pasos" role="list">
+        {
+          pasos.map((paso, i) => (
+            <li class="paso">
+              <span class="paso__num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h3>{paso.titulo}</h3>
+                <p>{paso.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="comprar__actions">
+        <Button href={site.cuanto}>Ver la tienda</Button>
+        <Button href={site.instagramDM} variant="secondary">Escríbenos por Instagram</Button>
+        {site.whatsapp && <Button href={site.whatsapp} variant="secondary">Escríbenos por WhatsApp</Button>}
+      </div>
+    </div>
+    <figure class="comprar__photo">
+      <Picture
+        src={orilla}
+        alt="Orilla de una playa de arena oscura con olas suaves, cielo con nubes e islas en el horizonte"
+        widths={[320, 480, 640]}
+        sizes="(min-width: 900px) 28vw, 100vw"
+        formats={['avif', 'webp']}
+        quality={50}
+      />
+      <figcaption class="sticker sticker--neon">{site.shipping}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .comprar {
+    background: var(--vino);
+    clip-path: polygon(0 clamp(1.5rem, 5vw, 4.5rem), 100% 0, 100% 100%, 0 100%);
+    padding-block: clamp(5rem, 12vw, 9rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .comprar__inner {
+    display: grid;
+    gap: 3rem;
+  }
+
+  h2 {
+    font-size: var(--step-4);
+  }
+
+  .pasos {
+    display: grid;
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .paso {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 1.25rem;
+  }
+
+  .paso__num {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--neon);
+  }
+
+  h3 {
+    font-size: var(--step-2);
+  }
+
+  .paso p {
+    margin-top: 0.25rem;
+    font-size: var(--step-1);
+  }
+
+  .comprar__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .comprar__photo {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 24rem);
+    transform: rotate(2deg);
+    border: 0.5rem solid var(--hueso);
+    box-shadow: 8px 8px 0 var(--obsidiana);
+  }
+
+  .comprar__photo :global(img) {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .comprar__photo .sticker {
+    position: absolute;
+    left: -1rem;
+    bottom: 1.5rem;
+    --tilt: -7deg;
+  }
+
+  @media (min-width: 900px) {
+    .comprar__inner {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+      align-items: center;
+      gap: 4rem;
+    }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import { site } from '../config/site';
+
+const url = new URL('/', site.url).href;
+const data = {
+  '@context': 'https://schema.org',
+  '@type': 'ClothingStore',
+  name: site.name,
+  slogan: site.tagline,
+  description: `${site.subtitle}. Ropa nueva, trajes de baño y accesorios de estilo dark.`,
+  url,
+  logo: new URL('/icon-512.png', site.url).href,
+  image: new URL('/og.jpg', site.url).href,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.location.city,
+    addressRegion: site.location.region,
+    addressCountry: site.location.country,
+  },
+  areaServed: { '@type': 'Country', name: 'Panamá' },
+  sameAs: [site.instagram, site.cuanto],
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(data)} />

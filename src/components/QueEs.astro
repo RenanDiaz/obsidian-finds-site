@@ -1,0 +1,79 @@
+---
+import { Picture } from 'astro:assets';
+import lancha from '../assets/fotos/playa-lancha.jpg';
+import { site } from '../config/site';
+---
+
+<section class="que-es wrap" aria-labelledby="que-es-title">
+  <div class="que-es__text">
+    <h2 id="que-es-title">Hallazgos oscuros, <span class="hl">calor tropical</span></h2>
+    <p>
+      Ropa nueva y accesorios de estilo alternativo, con los trajes de baño como protagonistas. Estética dark pensada
+      para el calor del trópico.
+    </p>
+  </div>
+  <figure class="que-es__photo">
+    <Picture
+      src={lancha}
+      alt="Lancha con toldo azul navegando en el mar en calma, con una isla verde al fondo"
+      widths={[320, 480, 640]}
+      sizes="(min-width: 800px) 30vw, 100vw"
+      formats={['avif', 'webp']}
+      quality={50}
+    />
+    <figcaption class="sticker sticker--morado">{site.location.label}</figcaption>
+  </figure>
+</section>
+
+<style>
+  .que-es {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+
+  h2 {
+    font-size: var(--step-3);
+  }
+
+  .hl {
+    color: var(--neon);
+  }
+
+  p {
+    margin-top: 1.5rem;
+    max-width: 38ch;
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  .que-es__photo {
+    position: relative;
+    justify-self: end;
+    width: min(100%, 26rem);
+    /* Bloque morado desplazado detrás de la foto. */
+    box-shadow: calc(-1 * var(--gap) * 1.5) calc(var(--gap) * 1.5) 0 var(--morado);
+    margin-left: calc(var(--gap) * 1.5);
+  }
+
+  .que-es__photo :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .que-es__photo .sticker {
+    position: absolute;
+    top: 1.25rem;
+    left: -0.75rem;
+    --tilt: -6deg;
+  }
+
+  @media (min-width: 800px) {
+    .que-es {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+      align-items: center;
+      gap: 4rem;
+    }
+  }
+</style>
